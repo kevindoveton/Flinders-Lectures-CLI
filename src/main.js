@@ -9,18 +9,25 @@ const CURRENT_YEAR = new Date().getYear() + 1900;
 const program = require('commander');
 var subject = '';
 var path = '';
+var year = CURRENT_YEAR;
+
 program
+  .version('1.0.0')
   .arguments('<subject> <path>')
   // .option('-u, --username <username>', 'The user to authenticate as')
   .option('-y, --year <year>', 'The year to download from. eg. 2016')
   .action(function(_subject, _path) {
     subject = _subject.toUpperCase();
     path = _path; 
+    if (program.year)
+      year = program.year
   })
   .parse(process.argv);
 
-const url = BASE_URL + subject + '_' + CURRENT_YEAR + '.xml'
-// console.log(url)
+
+var url = BASE_URL + subject + '_' + year + '.xml';
+
+
 const feed = new Feed(url);
 feed.get((res) => {
   var link = res[0].link
