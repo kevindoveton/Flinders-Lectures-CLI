@@ -16,6 +16,7 @@ flinders <subject> <path to download> --year 2016
 ## Installation
 To install flinders lecture downloader run the following command
 ```bash
+npm install
 npm install -g
 ```
 
