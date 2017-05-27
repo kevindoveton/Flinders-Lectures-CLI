@@ -12,7 +12,7 @@ class Downloader {
   
   download(url, path) {
     this.bar = new ProgressBar({ 
-      // schema: ':bar :ticks',
+      schema: '[:bar] :percent :elapseds :etas',
       total : 100
     });
 
