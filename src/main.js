@@ -11,6 +11,7 @@ var subject = '';
 var path = undefined;
 var year = CURRENT_YEAR;
 var back = 0;
+var all = false;
 
 program
   .version('1.0.0')
@@ -24,6 +25,8 @@ program
       year = program.year;
     if (program.back)
       back = program.back;
+    if (program.all)
+      all = true;
   })
   .parse(process.argv);
 
@@ -37,6 +40,7 @@ feed.get((res) => {
     console.log('no lecture available')
     process.exit(1);
   }
+  
   const r = res[back];
   
   const link = r.link
@@ -53,7 +57,6 @@ feed.get((res) => {
   if (pathExtension.length !== 4 || pathExtension.length !== 3)
     path = path +'.'+ extension;
     
-  new Download(res[0].link, path).then(() => {
-    console.log('done')
+  new Download(link, path).then(() => {
   });
 });

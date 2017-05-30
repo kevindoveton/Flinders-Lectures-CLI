@@ -1,4 +1,4 @@
-# Flinders Downloader
+# Flinders Lecture Downloader
 
 ## Description
 Download flinders lectures
@@ -15,11 +15,12 @@ Options:
   -b --back <number>  Download previous lectures
 ```
 
+Basic Usage
 ```bash
 flinders <subject> [path to download]
 ```
 
-to download from a certain year add the optional parameter year
+to download from a certain year add the optional parameter `year`
 ```bash
 flinders <subject> [path to download] --year 2016
 ```
