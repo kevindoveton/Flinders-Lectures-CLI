@@ -10,27 +10,39 @@ class Downloader {
     return this.download(this.url, this.folder);
   }
   
+  round(value, decimals) {
+    return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+  }
+  
   download(url, path) {
     this.bar = new ProgressBar({ 
-      schema: '[:bar] :percent :elapseds :etas',
+      schema: '[:bar] :percent :gones :remainings',
       total : 100
     });
 
     return new Promise((accept, reject) => {
+      var _remaining = 0;
+      var _gone = 0;
       progress(request(url), {
       })
       .on('progress', (state) => {
-        // console.log('progress', state);
+        _gone = this.round(state.time.elapsed, 2);
+        _remaining = this.round(state.time.remaining, 2);
+        
         this.bar.update(state.percent, {
-          elapsed: state.time.elapsed,
-          eta: state.time.elapsed
+          gone: _gone,
+          remaining: _remaining
         });
       })
       .on('error', (error) => {
         reject();
       })
       .on('end', () => {
-        console.log('end')
+        _remaining = 0;
+        this.bar.update(1, {
+          gone: _gone,
+          remaining: _remaining
+        });
         accept();
       })
       .pipe(fs.createWriteStream(path))
