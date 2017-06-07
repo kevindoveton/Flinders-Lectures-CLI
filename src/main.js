@@ -12,12 +12,14 @@ var path = undefined;
 var year = CURRENT_YEAR;
 var back = 0;
 var all = false;
-
+var list = false;
+var listMax = 10;
 program
   .version('1.0.0')
   .arguments('<subject> [path]')
   .option('-y, --year <year>', 'The year to download from. eg. 2016')
   .option('-b --back <number>', 'Download previous lectures')
+  .option('-l --list', 'List the lectures')
   .action(function(_subject, _path) {
     subject = _subject.toUpperCase();
     path = _path; 
@@ -27,6 +29,8 @@ program
       back = program.back;
     if (program.all)
       all = true;
+    if (program.list)
+      list = true;
   })
   .parse(process.argv);
 
@@ -57,6 +61,12 @@ feed.get((res) => {
   if (pathExtension.length !== 4 || pathExtension.length !== 3)
     path = path +'.'+ extension;
     
-  new Download(link, path).then(() => {
-  });
+  if (list) {
+    for (var i = 0; i < listMax; i++) {
+      console.log(res[i].title);
+    }
+  } else {
+    new Download(link, path).then(() => {
+    });
+  }
 });
