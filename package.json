@@ -1,6 +1,6 @@
 {
   "name": "download-flinders-lectures",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "download flinders lectures from the cli",
   "main": "src/main.js",
   "scripts": {

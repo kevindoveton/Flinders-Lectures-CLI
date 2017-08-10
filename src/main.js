@@ -62,8 +62,11 @@ feed.get((res) => {
     path = path +'.'+ extension;
     
   if (list) {
+    
     for (var i = 0; i < listMax; i++) {
-      console.log(res[i].title);
+      if (typeof(res[i]) != 'undefined') {
+        console.log(res[i].title);  
+      }
     }
   } else {
     new Download(link, path).then(() => {
